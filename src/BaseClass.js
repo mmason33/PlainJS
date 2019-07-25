@@ -1,13 +1,13 @@
 /**
  * @class BaseClass
- * @param {node} rootElement Root entry point for the component, the highest html element wrapper => The html element that has the "data-lithium-module" attribute
- * @param {object} args Arguments/options to passed to component constructor => "data-lithium-args" attribute
+ * @param {node} rootElement Root entry point for the component, the highest html element wrapper => The html element that has the "data-plain-module" attribute
+ * @param {object} args Arguments/options to passed to component constructor => "data-plain-args" attribute
  */
 export default class BaseClass {
     constructor(rootElement, args) {
         // Automate setting of properties through component "super" call
-        this.setRootElement(rootElement);
-        this.setProps(args);
+        this.setRootElement(rootElement)
+        this.setProps(args)
     }
 
     /**
@@ -22,31 +22,44 @@ export default class BaseClass {
             new CustomEvent(eventName, {
                 detail: args,
             })
-        );
+        )
     }
 
     /**
      * @method setProps Set the properties of the args object
-     * @param {object} args Args/options for the "data-lithium-args" attribute
-     * @returns void - TODO: Note returns true for the linter
+     * @param {object} args Args/options for the "data-plain-args" attribute
+     * @returns void
      */
     setProps(args) {
-        if (!args) return false;
+        if (!args) return false
         Object.keys(args).forEach(key => {
-            this[key] = args[key] || null;
-        });
+            this[key] = args[key] || null
+        })
+
+        this.setRefs()
+    }
+
+    /**
+     * @function setRefs Set references to other components - generated from an html attribute "data-plain-refs" accepts valid JSON
+     * @returns void
+     */
+    setRefs() {
+        if (!this.refs) return false
+        Object.keys(this.refs).forEach(key => {
+            this.refs[key] = document.querySelector(this.refs[key])
+        })
     }
 
     /**
      * @method setRootElement The the rootElement property
-     * @param {node} rootElement Root entry point element from "data-lithium-module" attribute
+     * @param {node} rootElement Root entry point element from "data-plain-module" attribute
      * @returns void
      */
     setRootElement(rootElement) {
         if (!rootElement) {
-            throw new Error('Each constructor needs a root entry DOM node');
+            throw new Error('Each constructor needs a root entry DOM node')
         }
 
-        this.rootElement = rootElement;
+        this.rootElement = rootElement
     }
 }

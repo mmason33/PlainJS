@@ -4,8 +4,8 @@
  */
 export default class System {
     constructor(classesObject) {
-        this.classesObject = classesObject;
-        this.modules = document.querySelectorAll('[data-plain-module]');
+        this.classesObject = classesObject
+        this.modules = document.querySelectorAll('[data-plain-module]')
     }
 
     /**
@@ -16,11 +16,14 @@ export default class System {
         Array.from(this.modules).map(rootElement => {
             const args = rootElement.dataset.plainArgs
                 ? JSON.parse(rootElement.dataset.plainArgs)
-                : null;
+                : {}
+            args.refs = rootElement.dataset.plainRefs 
+                ? JSON.parse(rootElement.dataset.plainRefs)
+                : {}
             return new this.classesObject[rootElement.dataset.plainModule](
                 rootElement,
                 args
-            );
-        });
+            )
+        })
     }
 }
