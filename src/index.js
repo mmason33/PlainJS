@@ -1,8 +1,7 @@
 import System from './System'
-import BaseClass from './BaseClass'
 
-import Video from '../test/Video'
-import Button from '../test/Button'
+import Video from '../demo/test/Video'
+import Button from '../demo/test/Button'
 
 
 const system = new System({
