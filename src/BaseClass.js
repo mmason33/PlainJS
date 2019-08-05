@@ -51,6 +51,14 @@ export default class BaseClass {
     }
 
     /**
+     * @function hasRefs Check if module has external references
+     * @returns {bool}
+     */
+    hasRefs() {
+        return !!this.refs
+    }
+
+    /**
      * @method setRootElement The the rootElement property
      * @param {node} rootElement Root entry point element from "data-plain-module" attribute
      * @returns void
