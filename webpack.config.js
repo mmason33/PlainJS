@@ -3,12 +3,13 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        index: './src/index.js',
+        'dist/index': './src/index.js',
+        'demo/dist/test': './demo/index.js',
     },
     devtool: 'sourcemaps',
     output: {
         path: path.resolve(__dirname, './'),
-        filename: './dist/[name].js',
+        filename: '[name].js',
     },
     module: {
         rules: [
